@@ -1,0 +1,14 @@
+{
+    "name": "pxniu/study",
+    "description": "a test composer project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "haoyu",
+            "email": "2535550555@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
