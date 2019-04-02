@@ -6,6 +6,6 @@
  * Time: 下午3:53
  */
 include "../vendor/autoload.php";
-use Hy\Component\Routing\Router as Router;
+use Hy\Routing\Router as Router;
 
 Router::run();
