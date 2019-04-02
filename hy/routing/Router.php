@@ -6,7 +6,6 @@ class Router
     {
     	#$app = str_replace($_SERVER['SCRIPT_NAME'], "", $_SERVER['REQUEST_URI']);
 		$app = $_SERVER['PATH_INFO'];
-
     	$app = trim($app, "/");
     	$params = array();
     	$route = array(
