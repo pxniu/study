@@ -9,6 +9,7 @@ namespace Hyweb\home;
 
 class Index {
 
+    private $mod;
 
     public function index() {
         echo "123";
