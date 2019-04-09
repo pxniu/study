@@ -69,11 +69,13 @@ class Router
             foreach ($cls->getProperties() as &$property)
             {
                 $propertyAnnotations = $annotationReader->getPropertyAnnotations($property);
-
                 foreach ($propertyAnnotations as $key => &$propertyAnnotation)
                 {
-                    $xxx = new \ReflectionClass("Hy\\Model\\Proxy");
-                    $vvv = $xxx->newInstance($propertyAnnotation->class, $propertyAnnotation->tableName);
+
+
+
+                    $xxx = new \ReflectionClass("Hy\\core\\CoreProxy");
+                    $vvv = $xxx->newInstance($propertyAnnotation->class);
                     //$kkk = new \ReflectionMethod($vvv,"__call");
                     $property->setAccessible(true);
                     $property->setValue($clsIns, $vvv);

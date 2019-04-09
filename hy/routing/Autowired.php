@@ -11,6 +11,4 @@ namespace Hy\Routing;
  */
 class Autowired {
     public $class = null;
-
-    public $tableName = null;
 }

@@ -9,4 +9,11 @@ $loader = include "../vendor/autoload.php";
 use Hy\Routing\Router as Router;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+
+function p($arr) {
+    echo "<pre>";
+    print_r($arr);
+    echo "</pre>";
+}
+
 Router::run();
