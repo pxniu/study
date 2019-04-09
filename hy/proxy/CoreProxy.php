@@ -5,7 +5,9 @@
  * Date: 2019/4/9
  * Time: 上午8:39
  */
-namespace Hy\core;
+namespace hy\proxy;
+use hy\exception\TransactionalException;
+use hy\handler\PdoInstance;
 use Doctrine\Common\Annotations\AnnotationReader;
 
 class CoreProxy {
@@ -26,7 +28,7 @@ class CoreProxy {
         foreach ($this->cls->getProperties() as &$property) {
             $propertyAnnotations = $annotationReader->getPropertyAnnotations($property);
             foreach ($propertyAnnotations as $key => &$propertyAnnotation) {
-                $xxx = new \ReflectionClass("Hy\\model\\Proxy");
+                $xxx = new \ReflectionClass("hy\\proxy\\Proxy");
                 $vvv = $xxx->newInstance($propertyAnnotation->class, $this->pdoInstance);
                 $property->setAccessible(true);
                 $property->setValue($this->clsInstance, $vvv);
@@ -62,11 +64,11 @@ class CoreProxy {
                                 $result = $method->invoke($this->clsInstance, $arguments);
                             }
                             $this->pdoInstance->getPdo()->commit();
-                        } catch (\Exception $exception) {
+                            return $result;
+                        } catch (TransactionalException $exception) {
                             $this->pdoInstance->getPdo()->rollBack();
+                            return false;
                         }
-                        $this->pdoInstance->setPdo(null);
-                        return $result;
                         //echo "后置方法";
                         break;
                 }
@@ -75,9 +77,17 @@ class CoreProxy {
             $method = new \ReflectionMethod($this->clsInstance, $name);
             //echo "前置方法";
             if (isset($arguments[0])) {
-                return $method->invoke($this->clsInstance, $arguments[0]);
+                try {
+                    return $method->invoke($this->clsInstance, $arguments[0]);
+                } catch (TransactionalException $exception) {
+                    return false;
+                }
             } else {
-                return $method->invoke($this->clsInstance, $arguments);
+                try {
+                    return $method->invoke($this->clsInstance, $arguments);
+                } catch (TransactionalException $exception) {
+                    return false;
+                }
             }
             //echo "后置方法";
         }

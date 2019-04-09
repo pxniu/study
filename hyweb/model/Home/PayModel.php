@@ -5,8 +5,8 @@
  * Date: 2019/4/9
  * Time: 上午11:20
  */
-namespace Hyweb\Model\Home;
-use Hy\Routing\Select;
+namespace hyweb\model\Home;
+use hy\annotation\Select;
 
 class PayModel {
 

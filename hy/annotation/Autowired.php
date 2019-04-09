@@ -5,7 +5,7 @@
  * Date: 2019/4/2
  * Time: 下午10:08
  */
-namespace Hy\Routing;
+namespace hy\annotation;
 /**
  * @Annotation
  */

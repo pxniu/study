@@ -1,9 +1,10 @@
 <?php
-namespace Hy\Routing;
+namespace hy\annotation;
+
 /**
  * @Annotation
  */
+class Select {
 
-class SelectOne {
     public $sql = null;
 }

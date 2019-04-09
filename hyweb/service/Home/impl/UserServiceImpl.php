@@ -1,14 +1,14 @@
 <?php
-namespace Hyweb\service\Home\impl;
+namespace hyweb\service\Home\impl;
 
-use Hyweb\service\Home\UserService;
-use Hy\Routing\Transactional;
-use Hy\Routing\Autowired;
+use hyweb\service\Home\UserService;
+use hy\annotation\Transactional;
+use hy\annotation\Autowired;
 
 class UserServiceImpl implements UserService {
 
     /**
-     * @Autowired(class = "\Hyweb\Model\Home\UserModel")
+     * @Autowired(class = "\hyweb\model\Home\UserModel")
      */
     private $mod;
 
@@ -46,5 +46,22 @@ class UserServiceImpl implements UserService {
 
     public function getOne($param) {
         return $this->mod->getOne($param);
+    }
+
+    public function selectById($param) {
+        return $this->mod->selectById($param);
+    }
+
+    public function updateName($arr) {
+        return $this->mod->updateName($arr);
+    }
+
+    /**
+     * 测试事物回滚
+     * @Transactional
+     */
+    public function testTransactional() {
+        $this->mod->myupdate(["id" => 1, "name" => "zhangsans"]);
+        $this->mod->update(["id" => 2, "price" => 10]);
     }
 }

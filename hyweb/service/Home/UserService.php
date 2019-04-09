@@ -5,7 +5,7 @@
  * Date: 2019/4/7
  * Time: 上午2:37
  */
-namespace Hyweb\service\Home;
+namespace hyweb\service\Home;
 
 interface UserService {
 

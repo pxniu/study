@@ -1,9 +1,8 @@
 <?php 
-namespace Hy\Routing;
+namespace hy\routing;
 
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Hy\Model\Proxy;
 
 
 class Router 
@@ -53,7 +52,7 @@ class Router
     		}
             $paramStr = rtrim($paramStr, "/");
     	}
-    	$class = "\\Hyweb\\".$route['manage']."\\".$route['controller'];
+    	$class = "\\hyweb\\".$route['manage']."\\".$route['controller'];
 
     	if(is_dir($baseDir.'/hyweb/'.$route['manage']))
     	{
@@ -69,33 +68,16 @@ class Router
             foreach ($cls->getProperties() as &$property)
             {
                 $propertyAnnotations = $annotationReader->getPropertyAnnotations($property);
+
                 foreach ($propertyAnnotations as $key => &$propertyAnnotation)
                 {
-
-
-
-                    $xxx = new \ReflectionClass("Hy\\core\\CoreProxy");
+                    $xxx = new \ReflectionClass("hy\\proxy\\CoreProxy");
                     $vvv = $xxx->newInstance($propertyAnnotation->class);
-                    //$kkk = new \ReflectionMethod($vvv,"__call");
                     $property->setAccessible(true);
                     $property->setValue($clsIns, $vvv);
-
-//                    die;
-//                    $class = is_object($propertyAnnotation) ? get_class($propertyAnnotation) : $propertyAnnotation;
-//                    $resultCls = basename(str_replace('\\', '/', $class));
-//                    $refCls = null;
-//                    try {
-//                        $class = new \ReflectionClass($propertyAnnotation->class);
-//                        $refCls = $class->newInstance($propertyAnnotation->tableName);
-//                        $property->setAccessible(true);
-//                        $property->setValue($clsIns, $refCls);
-//                    } catch (\Exception $e) {
-//                        throw  new \Exception("注解\"".$resultCls."\"的class\"".$propertyAnnotation->class."\"不存在!");
-//                    }
                 }
             }
-
-            $farMethod = new \ReflectionMethod($clsIns, "index");
+            $farMethod = new \ReflectionMethod($clsIns, $route['method']);
             $farMethod->invoke($clsIns);
     	}else
     	{

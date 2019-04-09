@@ -5,12 +5,12 @@
  * Date: 2019/4/4
  * Time: 上午11:33
  */
-namespace Hyweb\Model\Home;
-use Hy\Routing\Select;
-use Hy\Routing\Update;
-use Hy\Routing\Insert;
-use Hy\Routing\Delete;
-use Hy\Routing\SelectOne;
+namespace hyweb\model\Home;
+use hy\annotation\Select;
+use hy\annotation\Update;
+use hy\annotation\Insert;
+use hy\annotation\Delete;
+use hy\annotation\SelectOne;
 
 class UserModel {
 
@@ -18,6 +18,13 @@ class UserModel {
      * @Select(sql = "select * from user where username = {username}")
      */
     public function select() {
+
+    }
+
+    /**
+     * @Select(sql = "select * from user where id = {id}")
+     */
+    public function selectById() {
 
     }
 
@@ -74,6 +81,13 @@ class UserModel {
      * @SelectOne(sql = "select * from user where id = {id}")
      */
     public function getOne() {
+
+    }
+
+    /**
+     * @Update(sql = "update user set username = {username} where id = {id}")
+     */
+    public function updateName() {
 
     }
 }

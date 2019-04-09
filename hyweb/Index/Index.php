@@ -5,8 +5,8 @@
  * Date: 2019/4/2
  * Time: 下午4:59
  */
-namespace Hyweb\Index;
-use Hy\Routing\Autowired;
+namespace hyweb\Index;
+use hy\annotation\Autowired;
 
 /**
  * Class Index
@@ -15,12 +15,11 @@ use Hy\Routing\Autowired;
 class Index {
 
     /**
-     * @Autowired(class = "\Hyweb\Model\Home\UserModel", tableName = "user")
+     * @Autowired(class = "\hyweb\model\Home\UserModel")
      */
     private $mod;
 
     public function index() {
-
         //$list = $this->mod->select(["id" => 1, "username" => "zhangsan", "email" => "100538260@qq.com"]);
         //p($list);
 

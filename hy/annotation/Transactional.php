@@ -1,5 +1,5 @@
 <?php
-namespace Hy\Routing;
+namespace hy\annotation;
 
 /**
  * @Annotation

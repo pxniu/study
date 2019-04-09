@@ -5,7 +5,7 @@
  * Date: 2019/4/9
  * Time: 上午9:07
  */
-namespace Hy\core;
+namespace hy\handler;
 
 class PdoInstance {
 

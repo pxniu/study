@@ -5,13 +5,14 @@
  * Date: 2019/4/9
  * Time: 上午11:19
  */
-namespace Hyweb\service\Home\impl;
-use \Hy\Routing\Autowired;
+namespace hyweb\service\Home\impl;
+use \hy\annotation\Autowired;
+use hyweb\service\Home\PayService;
 
-class PayServiceImpl implements \Hyweb\service\Home\PayService {
+class PayServiceImpl implements PayService {
 
     /**
-     * @Autowired(class = "\Hyweb\Model\Home\PayModel")
+     * @Autowired(class = "\hyweb\model\Home\PayModel")
      */
     private $mod;
 
