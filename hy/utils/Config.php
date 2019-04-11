@@ -25,14 +25,18 @@ class Config implements \ArrayAccess
 
     public function offsetGet($key)
     {
-        if (! defined("CONF_BASE_PATH"))
+        if (defined("CONF_BASE_PATH"))
         {
-            throw new \Exception("please defined CONF_BASE_PATH");
-        }
-        $path = str_replace(".", "/", $this->_path);
+            $path = str_replace(".", "/", $this->_path);
 
-        $this->_configs[$path] = require CONF_BASE_PATH.$path.".php";
-        return $this->_configs[$path][$key];
+            $this->_configs[$path] = require CONF_BASE_PATH.$path.".php";
+            return $this->_configs[$path][$key];
+        } else {
+            $path = str_replace(".", "/", $this->_path);
+            $this->_configs[$path] = require BASE_DIR."/hy/conf/".$path.".php";
+            return $this->_configs[$path][$key];
+        }
+
     }
 
     public function offsetSet($key, $value)
