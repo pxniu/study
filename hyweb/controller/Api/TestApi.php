@@ -9,7 +9,7 @@
  *     @OA\Response(response="200", description="An example resource")
  * )
  */
-namespace hyweb\Api;
+namespace hyweb\controller\Api;
 
 class TestApi {
 

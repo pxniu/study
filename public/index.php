@@ -11,17 +11,13 @@ use hy\routing\Router as Router;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
+include "../hy/utils/Func.php";
 
-function add(int $a, int $b) : int {
-    return $a + $b;
-}
 
 define("BASE_DIR", dirname(dirname(__FILE__)));
-define("VIEW_BASE_PATH", "view");
-function p($arr) {
-    echo "<pre>";
-    print_r($arr);
-    echo "</pre>";
-}
+define("VIEW_BASE_PATH", "view/");
+define("CONF_BASE_PATH", dirname(__FILE__)."/conf/");
+
+\hy\error\ErrorCatch::run();
 
 Router::run();

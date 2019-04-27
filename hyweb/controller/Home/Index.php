@@ -5,7 +5,7 @@
  * Date: 2019/4/2
  * Time: 下午4:16
  */
-namespace hyweb\home;
+namespace hyweb\controller\Home;
 use hy\annotation\Autowired;
 use hy\utils\Config;
 use hy\view\View;
@@ -23,8 +23,8 @@ class Index {
     private $payService;
 
     public function index() {
-        echo Config::get("db.master", "host");
-        p($this->payService->getAll());
+        //echo Config::get("db.master", "host");
+        //p($this->payService->getAll());
         //$info = $this->service->getOne(["id" => 1]);
         //p($info);
 
@@ -42,6 +42,8 @@ class Index {
 //            echo "更新失败!";
 //        }
 
+        $view = View::make("Home.Index.index");
+        $view->process($view);
     }
 
     public function testTransactional() {

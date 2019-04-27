@@ -14,7 +14,7 @@ class UpdateHandler {
     public static function run($pdoInstance, $propertyAnnotation, $args) {
         $pattern = "/{(.*?)}/";
         $newArr = [];
-        $newSql = $propertyAnnotation->sql;
+        $newSql = ParseSqlHandler::parseSql($propertyAnnotation->sql, $args);
         if (preg_match_all($pattern, $newSql, $result)) {
             if (!empty ($result[1])) {
                 foreach ($result[1] as $key => $val) {
@@ -28,7 +28,6 @@ class UpdateHandler {
             } else {
                 die("注解入参写法有误，请仔细检查!");
             }
-
             $stmt = $pdoInstance->_pdo->prepare($newSql);
             foreach($newArr as $k => $v)
             {
@@ -40,15 +39,12 @@ class UpdateHandler {
                     $stmt->bindValue(":$k", $v, \PDO::PARAM_STR);
                 }
             }
-            $stmt->execute();
-            $affect_row = $stmt->rowCount();
-            if($affect_row)
-            {
+
+            try {
+                $stmt->execute();
                 return true;
-            }
-            else
-            {
-                throw new TransactionalException("更新失败!");
+            } catch (\Exception $exception) {
+                throw new TransactionalException();
             }
         } else {
             //没有匹配到 执行sql

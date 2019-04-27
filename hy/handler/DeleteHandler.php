@@ -12,7 +12,7 @@ class DeleteHandler {
     public static function run($pdoInstance, $propertyAnnotation, $args) {
         $pattern = "/{(.*?)}/";
         $newArr = [];
-        $newSql = $propertyAnnotation->sql;
+        $newSql = ParseSqlHandler::parseSql($propertyAnnotation->sql, $args);
         if (preg_match_all($pattern, $newSql, $result)) {
             if (!empty ($result[1])) {
                 foreach ($result[1] as $key => $val) {

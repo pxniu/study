@@ -5,12 +5,12 @@
  * Date: 2019/4/2
  * Time: 下午4:59
  */
-namespace hyweb\Index;
+namespace hyweb\controller\Index;
 use hy\annotation\Autowired;
 
 /**
  * Class Index
- * @package Hyweb\Index
+ * @package Hyweb\controller\Index
  */
 class Index {
 

@@ -12,7 +12,12 @@ class Router
         $vendorDir = dirname(dirname(__FILE__));
         $baseDir = dirname($vendorDir);
     	#$app = str_replace($_SERVER['SCRIPT_NAME'], "", $_SERVER['REQUEST_URI']);
-		$app = $_SERVER['PATH_INFO'];
+
+        if (!empty ($_SERVER['PATH_INFO'])) {
+            $app = $_SERVER['PATH_INFO'];
+        } else {
+            $app = preg_replace("/\?(.*)/", "", str_replace($_SERVER['SCRIPT_NAME'], "", $_SERVER['REQUEST_URI']));
+        }
     	$app = trim($app, "/");
     	$params = array();
     	$route = array(
@@ -52,9 +57,9 @@ class Router
     		}
             $paramStr = rtrim($paramStr, "/");
     	}
-    	$class = "\\hyweb\\".$route['manage']."\\".$route['controller'];
+    	$class = "\\hyweb\\controller\\".$route['manage']."\\".$route['controller'];
 
-    	if(is_dir($baseDir.'/hyweb/'.$route['manage']))
+    	if(is_dir($baseDir.'/hyweb/controller/'.$route['manage']))
     	{
     		define("GROUP_NAME", $route['manage']);
     		define("MODULE_NAME", $route['controller']);

@@ -2,92 +2,51 @@
 /**
  * Created by PhpStorm.
  * User: haoyu
- * Date: 2019/4/4
- * Time: 上午11:33
+ * Date: 2019/4/23
+ * Time: 下午3:27
  */
+
 namespace hyweb\model\Home;
-use hy\annotation\Select;
-use hy\annotation\Update;
-use hy\annotation\Insert;
-use hy\annotation\Delete;
-use hy\annotation\SelectOne;
+use \hy\annotation\SelectOne;
+use \hy\annotation\Select;
 
 class UserModel {
 
-    /**
-     * @Select(sql = "select * from user where username = {username}")
-     */
-    public function select() {
-
-    }
 
     /**
-     * @Select(sql = "select * from user where id = {id}")
+     * @Select(sql = "select * from user where 1=1 <if test='username != null'> and username like %{username}%</if> <if test='nickname != null'> and nickname like %{nickname}%</if> limit {start}, {limit}")
      */
-    public function selectById() {
-
-    }
-
-    /**
-     * @Select(sql = "select a.* from user as a left join pay as b on a.uid = b.uid where b.price > {price} and a.username = {username}")
-     */
-    public function selects() {
-
-    }
-
-    /**
-     * @Select(sql = "select * from user limit {page}, {pageSize}")
-     */
-    public function getAll() {
-
-    }
-
-    /**
-     * @Update(sql = "update user set username = {name} where id = {id}")
-     */
-    public function myUpdate() {
-
-    }
-
-    /**
-     * @Update(sql = "update user set price = price + {price} where id = {id}")
-     */
-    public function update() {
-
-    }
-
-    /**
-     * @Update(sql = "update user set price = price + {price} where id = {id}")
-     */
-    public function canupdate() {
-
-    }
-
-    /**
-     * @Insert(sql = "insert into user (username, password, age, height, price, addtime) values ({username}, {password}, {age}, {height}, {price}, now())")
-     */
-    public function insert() {
-
-    }
-
-    /**
-     * @Delete(sql = "delete from user where id = {id}")
-     */
-    public function delete() {
+    public function selectByLimit() {
 
     }
 
     /**
      * @SelectOne(sql = "select * from user where id = {id}")
      */
-    public function getOne() {
+    public function selectById() {
 
     }
 
     /**
-     * @Update(sql = "update user set username = {username} where id = {id}")
+     * @Select("
+    select * from user where 1=1
+    <if test='age == 20'>年龄</if>
+    <if test='username != NULL'> and username like '%{username}%'</if>
+    <if test='password != null'> and password = {password}</if>
+    <if test='email != 100538260@qq.com'> and nihaoa </if>
+    <if test='height > 200'>身高2米以上</if>
+    limit {page}, {pageSize}
+    ")
      */
-    public function updateName() {
+    /**
+     * @SelectOne("
+    select * from user where 1=1
+    <if test='username != NULL'> and username like %{username}%</if>
+    <if test='nickname != null'> and nickname like %{nickname}</if>
+    limit {page}, {pageSize}
+    ")
+     */
+    public function selectDemo() {
 
     }
 }

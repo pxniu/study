@@ -1,8 +1,13 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: haoyu
+ * Date: 2019/4/23
+ * Time: 下午3:36
+ */
 namespace hyweb\service\Home\impl;
 
 use hyweb\service\Home\UserService;
-use hy\annotation\Transactional;
 use hy\annotation\Autowired;
 
 class UserServiceImpl implements UserService {
@@ -10,58 +15,24 @@ class UserServiceImpl implements UserService {
     /**
      * @Autowired(class = "\hyweb\model\Home\UserModel")
      */
-    private $mod;
+    private $_mod;
 
     /**
-     * @Transactional
-     * 事物service
+     * 根据条件查询用户
+     * @param array $selectArr
      */
-    function updateUser()
+    function selectByLimit(Array $selectArr)
     {
-        try {
-            $result = $this->mod->delete(["id" => 2]);
-
-//            $result = $this->mod->insert([
-//                "username" => "ceshi1",
-//                "password" => "admin",
-//                "age" => 23,
-//                "height" => 178,
-//                "price" => 200.68
-//            ]);
-
-            //$result = $this->mod->update(["id" => 2, "price" => 10]);
-            $result = $this->mod->myupdate(["id" => 1, "name" => "zhangsans"]);
-            //$result = $this->mod->getAll(["page" => 0, "pageSize" => 10]);
-           return $result;
-            //$this->mod->canupdate(["id" => 1, "price" => 20]);
-            //var_dump($result);
-        } catch (\Exception $exception) {
-            echo "异常了!";
-            throw new \Exception();
-        }
-//        $list = $this->mod->getAll(["page" => 0, "pageSize" => 10]);
-//        p($list);
-        // TODO: Implement updateUser() method.
-    }
-
-    public function getOne($param) {
-        return $this->mod->getOne($param);
-    }
-
-    public function selectById($param) {
-        return $this->mod->selectById($param);
-    }
-
-    public function updateName($arr) {
-        return $this->mod->updateName($arr);
+        return $this->_mod->selectByLimit($selectArr);
     }
 
     /**
-     * 测试事物回滚
-     * @Transactional
+     * 根据主键id查询
+     * @param int $id
+     * @return mixed
      */
-    public function testTransactional() {
-        $this->mod->myupdate(["id" => 1, "name" => "zhangsans"]);
-        $this->mod->update(["id" => 2, "price" => 10]);
+    function selectById(Array $arr)
+    {
+        return $this->_mod->selectById($arr);
     }
 }
