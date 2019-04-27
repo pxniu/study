@@ -47,3 +47,24 @@ php框架
             p($this->payService->getAll());
         }
     }
+4.数据判断注入 如:
+
+    /**
+     * @Select(sql = "select * from role <if test='name != null'>where name like %{name}%</if> order by addtime desc limit {start}, {limit}")
+     */
+    public function getAllByExcemples() {
+
+    }
+5.数据循环注入 如:
+    
+    /**
+     * @Insert(sql = "
+        insert into roles (roleId, permissionId) values
+          <foreach collection='list' item='r' separator=",">
+            ({roleId}, #id#})
+          </foreach>
+     ")
+     */
+    public function adds() {
+
+    }
