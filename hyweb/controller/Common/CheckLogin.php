@@ -20,7 +20,8 @@ class CheckLogin {
         $admin = Session::get("uid");
         $list = $this->_modUserService->selectById(["id" => 1]);
         $allowUrl = [
-            "home/login/index"
+            "home/login/index",
+            "home/login/checkusername"
         ];
         $domain = strtolower(GROUP_NAME."/".MODULE_NAME."/".ACTION_NAME);
 

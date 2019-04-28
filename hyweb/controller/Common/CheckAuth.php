@@ -10,6 +10,6 @@ namespace hyweb\controller\Common;
 class CheckAuth {
 
     public function run() {
-        echo "checkAuth";
+
     }
 }
