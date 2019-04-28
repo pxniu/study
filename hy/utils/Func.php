@@ -44,3 +44,30 @@ function I($name) {
         return null;
     }
 }
+
+function U($string, $params = array())
+{
+    $strArr = explode("/", $string);
+    $group = isset($strArr[0]) ? $strArr[0] : "Index";
+    $controller = isset($strArr[1]) ? $strArr[1] : "Index";
+    $action = isset($strArr[2]) ? $strArr[2] : "index";
+
+    $paramStr = "";
+    if(!empty($params))
+    {
+        foreach($params as $key => $val)
+        {
+            $paramStr .= $key."/".$val."/";
+        }
+        $paramStr = rtrim($paramStr, "/");
+    }
+
+    if(! defined("SCRIPT"))
+    {
+        $script = \hy\utils\Config::get("global.conf", "SCRIPT");
+    }else
+    {
+        $script = SCRIPT;
+    }
+    return $script."/".$group."/".$controller."/".$action."/".$paramStr;
+}

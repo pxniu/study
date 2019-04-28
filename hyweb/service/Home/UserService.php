@@ -22,4 +22,18 @@ interface UserService {
      * @return mixed
      */
     function selectById(Array $arr);
+
+    /**
+     * 根据账号查询用户
+     * @param array $selectArr
+     * @return mixed
+     */
+    public function selectByUsername(Array $selectArr);
+
+    /**
+     * 添加用户
+     * @param array $insertArr
+     * @return mixed
+     */
+    public function insert(Array $insertArr);
 }

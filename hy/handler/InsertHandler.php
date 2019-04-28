@@ -63,28 +63,13 @@ class InsertHandler {
                 }
             }
             $stmt->execute();
-            $affect_row = $stmt->rowCount();
-            if($affect_row)
-            {
-                return $pdoInstance->_pdo->lastInsertId();
-            }
-            else
-            {
-                throw new \Exception("插入失败!");
-            }
+            return $pdoInstance->_pdo->lastInsertId();
         } else {
             //没有匹配到 执行sql
             $stmt = $pdoInstance->_pdo->prepare($propertyAnnotation->sql);
             $stmt->execute();
             $affect_row = $stmt->rowCount();
-            if($affect_row)
-            {
-                return true;
-            }
-            else
-            {
-                throw new \Exception("插入失败!");
-            }
+            return $pdoInstance->_pdo->lastInsertId();
         }
     }
 }

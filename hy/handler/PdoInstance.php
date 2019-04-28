@@ -21,6 +21,7 @@ class PdoInstance {
             Config::get("db.master", "host");
             $this->_pdo = new \PDO("mysql:host=localhost;dbname=newmvc", "root", "root");
             $this->_pdo->exec("set names utf8");
+            $this->_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }catch(\Exception $e)
         {
             throw new \Exception($e->getMessage());

@@ -3,6 +3,7 @@ namespace hy\routing;
 
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use hy\utils\Config;
 
 
 class Router 
@@ -83,6 +84,31 @@ class Router
                 }
             }
             $farMethod = new \ReflectionMethod($clsIns, $route['method']);
+
+            //前置hook
+            $beforeAction = Config::get("application.hook", "beforeAction");
+            if (!empty($beforeAction)) {
+                foreach ($beforeAction as $key => $val) {
+                    $beforeCls = new \ReflectionClass($val);
+                    $beforeIns = $beforeCls->newInstance();
+
+                    foreach ($beforeCls->getProperties() as &$pro)
+                    {
+                        $proAnnotations = $annotationReader->getPropertyAnnotations($pro);
+
+                        foreach ($proAnnotations as $k => &$proAnnotation)
+                        {
+                            $xxx = new \ReflectionClass("hy\\proxy\\CoreProxy");
+                            $vvv = $xxx->newInstance($proAnnotation->class);
+                            $pro->setAccessible(true);
+                            $pro->setValue($beforeIns, $vvv);
+                        }
+                    }
+                    $beforeMethod = new \ReflectionMethod($beforeIns, "run");
+                    $beforeMethod->invoke($beforeIns);
+                }
+            }
+
             $farMethod->invoke($clsIns);
     	}else
     	{

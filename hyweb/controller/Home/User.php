@@ -24,20 +24,6 @@ class User {
     private $roleService;
 
     public function index() {
-        ini_set("display_errors", 1);
-//        $list = $this->userService->selectByLimit([
-//            "page" => 0,
-//            "pageSize" => 20,
-//            "limit" => 10,
-//            "username" => "wang",
-//            "nickname" => "1",
-//            "password" => "admin",
-//            "email" => "100538260@qq.com",
-//            "age" => 20,
-//            "height" => 201
-//        ]);
-//        p($list);
-
         $view = View::make("Home.User.index");
         $view->process($view);
     }
@@ -60,22 +46,47 @@ class User {
 
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
+            $insertArr = [
+                "roleid" => I("roleid"),
+                "username" => I("username"),
+                "isboss" => I("isboss"),
+                "password" => password_hash(I("password"), PASSWORD_BCRYPT),
+                "nickname" => I("nickname")
+            ];
+            if ($this->userService->insert($insertArr)) {
+                JsonData::success();
+            } else {
+                JsonData::fail();
+            }
         } else {
-            $view = View::make("Home.User.add");
+            $list = $this->roleService->getAll();
+            $view = View::make("Home.User.add")
+                    ->with("list", $list);
             $view->process($view);
         }
     }
 
     public function edit() {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
+            p($_POST);
         } else {
             $id = I("id");
             $info = $this->userService->selectById(["id" => $id]);
+            $list = $this->roleService->getAll();
             $view = View::make("Home.User.edit")
-                    ->with("info", $info);
+                    ->with("info", $info)
+                    ->with("list", $list);
             $view->process($view);
+        }
+    }
+
+    public function checkAddUser() {
+        $username = I("username");
+        $info = $this->userService->selectByUsername(["username" => $username]);
+        if (!empty ($info)) {
+            echo "false";
+        } else {
+            echo "true";
         }
     }
 }

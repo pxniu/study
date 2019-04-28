@@ -9,6 +9,7 @@
 namespace hyweb\model\Home;
 use \hy\annotation\SelectOne;
 use \hy\annotation\Select;
+use \hy\annotation\Insert;
 
 class UserModel {
 
@@ -24,6 +25,20 @@ class UserModel {
      * @SelectOne(sql = "select * from user where id = {id}")
      */
     public function selectById() {
+
+    }
+
+    /**
+     * @SelectOne(sql = "select * from user where username = {username}")
+     */
+    public function selectByUsername() {
+
+    }
+
+    /**
+     * @Insert(sql = "insert into user (id, username, password, nickname, isboss, addtime, roleid) values (null, {username}, {password}, {nickname}, {isboss}, now(), {roleid})")
+     */
+    public function insert() {
 
     }
 

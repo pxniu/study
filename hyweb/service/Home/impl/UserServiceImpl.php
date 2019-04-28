@@ -35,4 +35,24 @@ class UserServiceImpl implements UserService {
     {
         return $this->_mod->selectById($arr);
     }
+
+    /**
+     * 根据账号查询用户
+     * @param array $selectArr
+     * @return mixed
+     */
+    public function selectByUsername(Array $selectArr)
+    {
+        return $this->_mod->selectByUsername($selectArr);
+    }
+
+    /**
+     * 添加用户
+     * @param array $insertArr
+     * @return mixed
+     */
+    public function insert(Array $insertArr)
+    {
+        return $this->_mod->insert($insertArr);
+    }
 }
