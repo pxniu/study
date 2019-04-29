@@ -31,6 +31,10 @@ class Index {
         $view->process($view);
     }
 
+    public function main() {
+        echo "后台主页";
+    }
+
     public function getChildren($list, $pid) {
         $returnArr = [];
         if (!empty ($list)) {
@@ -68,5 +72,12 @@ class Index {
     public function vue() {
         $view = View::make("/Home/Index/vue");
         $view->process($view);
+    }
+
+    public function logout() {
+        Session::delete("menu");
+        Session::delete("ids");
+        Session::delete("auth");
+        header("Location:/Home/Login/index");
     }
 }

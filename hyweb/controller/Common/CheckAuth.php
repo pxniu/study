@@ -33,6 +33,7 @@ class CheckAuth {
 
         $uid = Session::get("uid");
         $menu = "";
+        $userInfo = [];
         if ($uid) {
             if (!Session::get("ids") || !Session::get("auth") || !Session::get("menu")) {
                 $userInfo = $this->_modUserService->selectById(["id" => $uid]);
@@ -69,17 +70,16 @@ class CheckAuth {
             }
         }
 
-        $sids = Session::get("ids");
-        $sauth = Session::get("auth");
+        if (!empty ($userInfo) && $userInfo['isboss'] != 1) {
+            $sids = Session::get("ids");
+            $sauth = Session::get("auth");
 
 
-        if (isset($sids[$currentMenu])) {
-            if (in_array($sids[$currentMenu], $sauth)) {
-                die("无权限访问!");
+            if (isset($sids[$currentMenu])) {
+                if (in_array($sids[$currentMenu], $sauth)) {
+                    die("无权限访问!");
+                }
             }
         }
-
-
-
     }
 }

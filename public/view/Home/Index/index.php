@@ -39,7 +39,7 @@
     <!-- 顶部 -->
     <div class="layui-header header" style="background-color: #2368B0;">
         <div class="layui-main">
-            <a href="#" class="logo" style="width: 280px">吉林省人社系统网络宣传矩阵</a>
+            <a href="#" class="logo">电商后台</a>
             <!-- 显示/隐藏菜单 -->
             <a style="background:#fff;color:#393D47;" href="javascript:;" class="iconfont hideMenu icon-menu1"></a>
             <!-- 天气信息 -->
@@ -73,7 +73,7 @@
                 </li>
                 <li class="layui-nav-item" mobile>
 
-                    <a href="${base}/logout.htm"><i class="iconfont icon-loginout"></i> 退出</a>
+                    <a href="/Home/Index/logout"><i class="iconfont icon-loginout"></i> 退出</a>
 
                 </li>
                 <!-- <li class="layui-nav-item lockcms" pc>
@@ -90,7 +90,7 @@
                         <dd><a href="javascript:;" data-url="/admin/user/edit/${sysUserDto.userid}"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
                         <dd><a href="javascript:;" class="changeSkin noAddTab"><i class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
 
-                        <dd class="xxx"><a href="/admin/login/logout" class="noAddTab"><i class="iconfont icon-loginout"></i><cite>退出</cite></a>
+                        <dd class="xxx"><a href="/Home/Index/logout" class="noAddTab"><i class="iconfont icon-loginout"></i><cite>退出</cite></a>
                         </dd>
 
                     </dl>
@@ -120,9 +120,12 @@
                         <dl class="layui-nav-child">
                             <?php
                             foreach ($val['children'] as $k => $v) {
-                                ?>
-                                <dd><a href="javascript:;" data-url="/<?=$v['url']?>" class="layui-icon" data-icon=""><?=$v['icon']?></i><cite><?=$v['name']?></cite></a></dd>
-                                <?php
+                                if ($v['isshow'] == 1) {
+                                    ?>
+                                    <dd><a href="javascript:;" data-url="/<?= $v['url'] ?>" class="layui-icon"
+                                           data-icon=""><?= $v['icon'] ?></i><cite><?= $v['name'] ?></cite></a></dd>
+                                    <?php
+                                }
                             }
                             ?>
                         </dl>
@@ -158,7 +161,7 @@
         </ul>
         <div class="layui-tab-content clildFrame" >
             <div class="layui-tab-item layui-show">
-                <iframe src="/admin/index/index"></iframe>
+                <iframe src="/Home/Index/main"></iframe>
             </div>
         </div>
     </div>

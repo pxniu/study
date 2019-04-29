@@ -54,6 +54,6 @@ class Session
     {
         session_start();
         unset($_SESSION[$name]);
-        session_write_close();
+        session_destroy();
     }
 }
