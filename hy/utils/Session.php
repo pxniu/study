@@ -34,7 +34,7 @@ class Session
     static public function get($name = '')
     {
         session_start();
-        $val = null;
+        $val = false;
         if (isset($_SESSION[$name])) {
             $val = $_SESSION[$name];
         }

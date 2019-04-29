@@ -8,6 +8,7 @@
 namespace hyweb\controller\Home;
 use hy\annotation\Autowired;
 use hy\utils\Config;
+use hy\utils\Session;
 use hy\view\View;
 
 class Index {
@@ -23,27 +24,24 @@ class Index {
     private $payService;
 
     public function index() {
-        //echo Config::get("db.master", "host");
-        //p($this->payService->getAll());
-        //$info = $this->service->getOne(["id" => 1]);
-        //p($info);
-
-        //$list = $this->service->updateUser();
-        //p($list);
-//        $id = $_GET['id'];
-//        $info = $this->service->selectById(["id" => $id]);
-//        p($info);
-
-        /*p($info);*/
-        //$this->service->updateUser();
-//        try {
-//            $this->service->updateName(["id" => 1, "username" => "zhangsan"]);
-//        } catch (\Exception $exception) {
-//            echo "更新失败!";
-//        }
-
-        $view = View::make("Home.Index.index");
+        $menu = Session::get("menu");
+        $newMenu = $this->getChildren($menu, 0);
+        $view = View::make("Home.Index.index")
+                ->with("newMenu", $newMenu);
         $view->process($view);
+    }
+
+    public function getChildren($list, $pid) {
+        $returnArr = [];
+        if (!empty ($list)) {
+            foreach ($list as $key => $val) {
+                if ($val['pid'] == $pid) {
+                    $val['children'] = $this->getChildren($list, $val['id']);
+                    $returnArr[] = $val;
+                }
+            }
+        }
+        return $returnArr;
     }
 
     public function testTransactional() {

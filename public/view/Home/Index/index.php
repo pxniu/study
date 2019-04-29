@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>主页</title>
+    <title>${sysName}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -42,33 +42,6 @@
             <a href="#" class="logo" style="width: 280px">吉林省人社系统网络宣传矩阵</a>
             <!-- 显示/隐藏菜单 -->
             <a style="background:#fff;color:#393D47;" href="javascript:;" class="iconfont hideMenu icon-menu1"></a>
-            <!-- 搜索 -->
-            <!-- <div class="layui-form component">
-                <select name="modules" lay-verify="required" lay-search="">
-                    <option value="">直接选择或搜索选择</option>
-                    <option value="1">layer</option>
-                    <option value="2">form</option>
-                    <option value="3">layim</option>
-                    <option value="4">element</option>
-                    <option value="5">laytpl</option>
-                    <option value="6">upload</option>
-                    <option value="7">laydate</option>
-                    <option value="8">laypage</option>
-                    <option value="9">flow</option>
-                    <option value="10">util</option>
-                    <option value="11">code</option>
-                    <option value="12">tree</option>
-                    <option value="13">layedit</option>
-                    <option value="14">nav</option>
-                    <option value="15">tab</option>
-                    <option value="16">table</option>
-                    <option value="17">select</option>
-                    <option value="18">checkbox</option>
-                    <option value="19">switch</option>
-                    <option value="20">radio</option>
-                </select>
-                <i class="layui-icon">&#xe615;</i>
-            </div> -->
             <!-- 天气信息 -->
             <div class="weather" pc>
                 <div id="tp-weather-widget"></div>
@@ -96,7 +69,7 @@
                 </li> -->
                 <li class="layui-nav-item" mobile>
                     <a href="javascript:;" class="mobileAddTab" data-url="page/user/changePwd.html"><i
-                            class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
+                                class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
                 </li>
                 <li class="layui-nav-item" mobile>
 
@@ -112,7 +85,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd class="xxx"><a href="javascript:;" data-url="" onclick="refresh();"><i
-                                    class="layui-icon">&#x1002;</i><cite>刷新</cite></a></dd>
+                                        class="layui-icon">&#x1002;</i><cite>刷新</cite></a></dd>
                         <dd><a href="javascript:;" data-url="/admin/user/edit/${sysUserDto.userid}"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
                         <dd><a href="javascript:;" data-url="/admin/user/edit/${sysUserDto.userid}"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
                         <dd><a href="javascript:;" class="changeSkin noAddTab"><i class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
@@ -126,33 +99,41 @@
         </div>
     </div>
     <!-- 左侧导航 -->
-    <div class="layui-side layui-bg-black" style="background-color: #1f69c0">
+    <div class="layui-side layui-bg-black">
     <div class="user-photo">
-        <a id="img" class="img" title="我的头像" style="border-radius:50%;display: flex;justify-content: center;align-items:center;color:#fff;font-size:40px;" >超</a>
-        <p>你好！<span class="userName">admin</span>, 欢迎登录</p>
+        <a id="img" class="img" title="我的头像" style="background:url('/static/images/face.jpg') 100% 100%;border-radius:50%;display: flex;justify-content: center;align-items:center;color:#fff;font-size:40px;" ></a>
+        <p>你好！<span class="userName">guanliuan</span>, 欢迎登录</p>
     </div>
-    <div class="navBar layui-side-scroll" style="background-color: #1f69c0">
+    <div class="navBar layui-side-scroll">
     <ul class="layui-nav layui-nav-tree">
-        <li class="layui-nav-item layui-this" style="background-color: white"><a href="javascript:;" data-url="/admin/index/main"><i
-                class="iconfont icon-computer" data-icon="icon-computer"></i><cite>首页</cite></a></li>
-<!--        <c:if test="${!empty menuList}">-->
-<!--            <c:forEach items="${menuList}" var="r">-->
-<!--                <li class="layui-nav-item">-->
-<!--                    <a href="javascript:;"><i class="layui-icon"-->
-<!--                                              data-icon="">${r.icon}</i><cite>${r.name}</cite><span-->
-<!--                            class="layui-nav-more"></span></a>-->
-<!--                    <c:if test="${!empty r.childs}">-->
-<!--                        <dl class="layui-nav-child">-->
-<!--                            <c:forEach items="${r.childs}" var="x">-->
-<!--                                <dd><a href="javascript:;" data-url="${x.url}"><i-->
-<!--                                            class="layui-icon" data-icon="">${x.icon}</i><cite>${x.name}</cite></a>-->
-<!--                                </dd>-->
-<!--                            </c:forEach>-->
-<!--                        </dl>-->
-<!--                    </c:if>-->
-<!--                </li>-->
-<!--            </c:forEach>-->
-<!--        </c:if>-->
+        <li class="layui-nav-item layui-this"><a href="javascript:;" data-url="/admin/index/main"><i
+                        class="iconfont icon-computer" data-icon="icon-computer"></i><cite>首页</cite></a></li>
+        <?php
+        if (!empty ($newMenu)) {
+            foreach ($newMenu as $key => $val) {
+                ?>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon" data-icon=""><?=$val['icon']?></i><cite><?=$val['name']?></cite><span class="layui-nav-more"></span></a>
+                    <?php
+                    if (!empty ($val['children'])) {
+                        ?>
+                        <dl class="layui-nav-child">
+                            <?php
+                            foreach ($val['children'] as $k => $v) {
+                                ?>
+                                <dd><a href="javascript:;" data-url="/<?=$v['url']?>" class="layui-icon" data-icon=""><?=$v['icon']?></i><cite><?=$v['name']?></cite></a></dd>
+                                <?php
+                            }
+                            ?>
+                        </dl>
+                        <?php
+                    }
+                    ?>
+                </li>
+                <?php
+            }
+        }
+        ?>
 
         <span class="layui-nav-bar" style="top: 22.5px; height: 0px; opacity: 0;"></span>
     </ul>
@@ -181,10 +162,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
-<!-- 底部 -->
 
 </div>
 
@@ -204,7 +182,7 @@
 
     var colorAngle = Math.floor(Math.random() * 360);
     var color = 'hsla(' + this.colorAngle + ',100%,50%,1)';
-    $("#img").css({"background": color});
+    //$("#img").css({"background": color});
 </script>
 </body>
 </html>
