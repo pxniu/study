@@ -59,7 +59,6 @@ class Router
             $paramStr = rtrim($paramStr, "/");
     	}
     	$class = "\\hyweb\\controller\\".$route['manage']."\\".$route['controller'];
-
     	if(is_dir($baseDir.'/hyweb/controller/'.$route['manage']))
     	{
     		define("GROUP_NAME", $route['manage']);
