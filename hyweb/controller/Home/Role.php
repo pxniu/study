@@ -8,6 +8,7 @@
 namespace hyweb\controller\Home;
 
 use hy\exception\TransactionalException;
+use hy\utils\HRedis;
 use hy\utils\JsonData;
 use hy\utils\Session;
 use hy\view\View;
@@ -168,5 +169,10 @@ class Role {
             }
         }
         return $returnArr;
+    }
+
+    public function testClient() {
+        $redis = new HRedis();
+        $redis->publish("test","nihaoa");
     }
 }

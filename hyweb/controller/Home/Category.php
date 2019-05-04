@@ -9,8 +9,14 @@ namespace hyweb\controller\Home;
 
 use hy\utils\JsonData;
 use hy\view\View;
+use hy\annotation\Autowired;
 
 class Category {
+
+    /**
+     * @Autowired(class = "\hyweb\service\Home\impl\CategoryServiceImpl")
+     */
+    private $categoryService;
 
     public function index() {
         $view = View::make("Home.Category.index");
@@ -19,9 +25,29 @@ class Category {
 
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
+            $insertArr = [
+                "cat_name" => I("cat_name"),
+                "parent_id" => I("parent_id"),
+                "cat_desc" => I("cat_desc"),
+                "sort" => I("sort"),
+                "is_show" => I("is_show")
+            ];
+            if ($this->categoryService->insert($insertArr)) {
+                JsonData::success();
+            } else {
+                JsonData::fail();
+            }
         } else {
-            $view = View::make("Home.Category.add");
+            $pid = I("pid");
+            if ($pid == 0) {
+                $parentName = "根目录";
+            } else {
+                //$info = $this->permissionService->selectById(["id" => $pid]);
+                //$parentName = $info['name'];
+            }
+            $view = View::make("Home.Category.add")
+                    ->with("pid", $pid)
+                    ->with("parentName", $parentName);
             $view->process($view);
         }
     }

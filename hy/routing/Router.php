@@ -3,6 +3,7 @@ namespace hy\routing;
 
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use hy\debug\Debug;
 use hy\utils\Config;
 
 
@@ -33,6 +34,9 @@ class Router
     	$paramStr = "";
     	if($count == 1 && $urlArr[0] != "")
     	{
+    	    if ($urlArr[0] == "debug") {
+    	        Debug::run();die;
+            }
     		$route['manage'] = $urlArr[0];
     	}elseif($count > 1 && $count < 3)
     	{

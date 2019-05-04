@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>角色管理</title>
+    <title>商品分类管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -14,6 +14,14 @@
     <link rel="stylesheet" href="/static/css/main.css" media="all" />
 </head>
 <body class="childrenBody">
+<!-- 添加start -->
+<blockquote class="layui-elem-quote news_search" style="border-left: 5px solid #2368B0;">
+
+    <div class="layui-inline">
+        <a class="layui-btn linksAdd_btn addBtn" data-title="添加分类" data-url="/Home/Category/add" style="background-color:#2368B0;" href="javascript:;">添加分类</a>
+    </div>
+</blockquote>
+<!-- 添加end -->
 
 <!-- 列表end -->
 <table id="table1" class="layui-table" lay-filter="table1"></table>
@@ -22,34 +30,27 @@
 <script type="text/javascript" src="/static/layui/layui.js"></script>
 <script src="/static/js/jquery.min.js?v=2.1.4"></script>
 <script src="/static/layui/layui.all.js" charset="utf-8"></script>
-<style>
-    .treeTable-empty {
-        width: 20px;
-        display: inline-block;
-    }
-
-    .treeTable-icon {
-        cursor: pointer;
-    }
-
-    .treeTable-icon .layui-icon-triangle-d:before {
-        content: "\e623";
-    }
-
-    .treeTable-icon.open .layui-icon-triangle-d:before {
-        content: "\e625";
-        background-color: transparent;
-    }
-</style>
 <script type="text/html" id="auth-state">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
+    $(".addBtn").on("click", function(){
+        var url = $(this).attr("data-url");
+        var title = $(this).attr("data-title");
+        layer.open({
+            type: 2,
+            title: title,
+            maxmin: true,
+            shadeClose: false, //点击遮罩关闭层
+            area : ['80%' , '60%'],
+            content: url
+        });
+    });
     layui.config({
-        base: 'module/'
+        base: '/static/layui/lay/module/'
     }).extend({
-        treetable: '../../static/layui/lay/module/treetable-lay/treetable'
+        treetable: 'treetable-lay/treetable'
     }).use(['treetable'], function () {
         var treetable = layui.treetable;
         // 渲染表格
